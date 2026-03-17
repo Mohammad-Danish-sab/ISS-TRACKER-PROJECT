@@ -22,7 +22,7 @@ function ISSCard() {
   if (!location) return <p>Loading...</p>;
 
   return (
-    <div className="bg-gray-800 p-6 rounded-2xl shadow-xl w-80 text-center hover:scale-105 transition duration-300">
+    <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 shadow-xl hover:scale-105 transition">
       <h2 className="text-xl font-bold text-green-400 mb-4">🌍 ISS Location</h2>
 
       <p className="text-gray-300 mb-2">Latitude: {location.latitude}</p>
