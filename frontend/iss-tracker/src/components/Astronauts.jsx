@@ -19,6 +19,14 @@ function Astronauts() {
 
   if (!data) return <p>Loading...</p>;
 
+    if (data.error) {
+      return (
+        <div className="bg-red-500 p-4 rounded-lg">
+          <p>{data.error}</p>
+        </div>
+      );
+    }
+
   return (
     <div className="bg-gray-800 p-6 rounded-2xl shadow-xl w-80 hover:scale-105 transition duration-300">
       <h2 className="text-xl font-bold text-blue-400 mb-4">
