@@ -15,6 +15,18 @@ function ISSMap({ lat = 0, lng = 0 }) {
       </MapContainer>
     </div>
   );
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetch("http://localhost:8000/iss/location")
+        .then((res) => res.json())
+        .then((data) => {
+          setLat(data.latitude);
+          setLon(data.longitude);
+        });
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
 }
 
 export default ISSMap;

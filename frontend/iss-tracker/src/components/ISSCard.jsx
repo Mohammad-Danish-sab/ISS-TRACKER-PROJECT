@@ -30,6 +30,12 @@ function ISSCard() {
       <p className="text-gray-300 mb-2">Longitude: {location.longitude}</p>
 
       <p className="text-xs text-gray-500">Updated every 5 seconds</p>
+
+      <p className="text-gray-300">🌍 Country: {location.country}</p>
+
+      <p className="text-gray-400 text-sm mt-2">
+        Updated: {new Date(location.timestamp * 1000).toLocaleTimeString()}
+      </p>
     </div>
   );
 }
