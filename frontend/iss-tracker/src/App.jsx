@@ -1,17 +1,18 @@
 import ISSCard from "./components/ISSCard";
 import Astronauts from "./components/Astronauts";
 import ISSMap from "./components/ISSMap";
+import Stats from "./components/Stats";
 
 function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white">
-      <div
+      {/* <div
         className="absolute inset-0 opacity-30"
         style={{
           backgroundImage:
             "url('https://www.transparenttextures.com/patterns/stardust.png')",
         }}
-      ></div>
+      ></div> */}
       <div className="max-w-7xl mx-auto px-6 py-10">
         {/* Header */}
         <h1 className="text-5xl font-bold text-center text-green-400 mb-12">
@@ -19,16 +20,23 @@ function App() {
         </h1>
 
         {/* Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-6 mb-8">
           <ISSCard />
           <Astronauts />
+          <Stats />
 
-          <div className="md:col-span-2 lg:col-span-1">
+          </div>
+
+          {/* map */}
+          <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-5 shadow-xl">
+            <h2 className="text-xl font-semibold text-green-400 mb-4">
+              🌍 Live ISS Map
+            </h2>
+
             <ISSMap />
           </div>
         </div>
       </div>
-    </div>
   );
 }
 

@@ -33,14 +33,14 @@ function Astronauts() {
         🧑‍🚀 Astronauts ({data.number})
       </h2>
 
-      <ul className="space-y-3">
+      <ul className="space-y-3 max-h-72 overflow-y-auto">
         {data.people.map((person, index) => (
           <li
             key={index}
-            className="flex items-center justify-between bg-gray-800 p-3 rounded-xl"
+            className="flex justify-between bg-gray-800/60 p-3 rounded-lg hover:bg-gray-700 transition"
           >
-            <span className="font-medium">👨‍🚀 {person.name}</span>
-            <span className="text-gray-400 text-sm">{person.craft}</span>
+            <span>👨‍🚀 {person.name}</span>
+            <span className="text-gray-400">{person.craft}</span>
           </li>
         ))}
       </ul>
