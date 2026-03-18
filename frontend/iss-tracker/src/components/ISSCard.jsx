@@ -3,6 +3,7 @@ import axios from "axios";
 
 function ISSCard() {
   const [location, setLocation] = useState(null);
+  const [flag, setFlag] = useState("");
 
   const fetchLocation = async () => {
     try {
@@ -13,11 +14,15 @@ function ISSCard() {
     }
   };
 
-  useEffect(() => {
-    fetchLocation();
-    const interval = setInterval(fetchLocation, 5000);
-    return () => clearInterval(interval);
-  }, []);
+useEffect(() => {
+  if (location.country) {
+    fetch(`https://restcountries.com/v3.1/name/${location.country}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setFlag(data[0].flags.png);
+      });
+  }
+}, [location]);
 
   if (!location) return <p>Loading...</p>;
 
@@ -36,6 +41,11 @@ function ISSCard() {
       <p className="text-gray-400 text-sm mt-2">
         Updated: {new Date(location.timestamp * 1000).toLocaleTimeString()}
       </p>
+      <div className="flex items-center gap-2 mt-2">
+        <p>Country: {location.country}</p>
+
+        {flag && <img src={flag} alt="flag" className="w-6 h-4" />}
+      </div>
     </div>
   );
 }
