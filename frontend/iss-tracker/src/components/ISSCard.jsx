@@ -42,7 +42,7 @@ useEffect(() => {
         Updated: {new Date(location.timestamp * 1000).toLocaleTimeString()}
       </p>
       <div className="flex items-center gap-2 mt-2">
-        <p>Country: {location.country}</p>
+        <p>🌍 Country: {location?.country || "Loading..."}</p>
 
         {flag && <img src={flag} alt="flag" className="w-6 h-4" />}
       </div>

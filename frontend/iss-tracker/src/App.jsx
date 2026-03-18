@@ -2,6 +2,7 @@ import ISSCard from "./components/ISSCard";
 import Astronauts from "./components/Astronauts";
 import ISSMap from "./components/ISSMap";
 import Stats from "./components/Stats";
+import ISSPass from "./components/ISSPass";
 
 function App() {
   return (
@@ -24,19 +25,19 @@ function App() {
           <ISSCard />
           <Astronauts />
           <Stats />
+          <ISSPass />
+        </div>
 
-          </div>
+        {/* map */}
+        <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-5 shadow-xl">
+          <h2 className="text-xl font-semibold text-green-400 mb-4">
+            🌍 Live ISS Map
+          </h2>
 
-          {/* map */}
-          <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-5 shadow-xl">
-            <h2 className="text-xl font-semibold text-green-400 mb-4">
-              🌍 Live ISS Map
-            </h2>
-
-            <ISSMap />
-          </div>
+          <ISSMap />
         </div>
       </div>
+    </div>
   );
 }
 
