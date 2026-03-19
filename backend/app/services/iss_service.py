@@ -2,33 +2,23 @@ import requests
 from app.services.location_service import get_country
 from app.services.weather_service import get_weather
 
+
 def get_iss_location():
     url = "http://api.open-notify.org/iss-now.json"
+    response = requests.get(url)   # ✅ correct
+    data = response.json()
 
-    try:
-        response = requests.get(url, timeout=5)
-        data = response.get(url).json()
+    return {
+        "latitude": float(data["iss_position"]["latitude"]),
+        "longitude": float(data["iss_position"]["longitude"])
+    }
 
-      
-        lat = data["iss_position"]["latitude"]
-        lon = data["iss_position"]["longitude"]
 
-        country = get_country(lat, lon)
-        weather = get_weather(lat, lon)
-
-        return {
-            "latitude": lat,
-            "longitude": lon,
-            "country": country,
-            "timestamp": data["timestamp"]
-        }
-        
-
-    except requests.exceptions.RequestException:
-        return {
-            "error": "ISS API is not responding right now"
-        }
-        
+def get_iss_speed():
+    # ISS avg speed ~ 27600 km/h
+    return {
+        "speed_km_h": 27600
+    }
     
 def get_astronauts():
     url = "http://api.open-notify.org/astros.json"

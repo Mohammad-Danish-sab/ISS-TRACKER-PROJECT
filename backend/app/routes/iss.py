@@ -8,6 +8,10 @@ router = APIRouter()
 def iss_location():
     return get_iss_location()
 
+@router.get("/speed")
+def iss_speed():
+    return get_iss_speed()
+
 @router.get("/iss/astronauts")
 def astronauts():
     return get_astronauts()
