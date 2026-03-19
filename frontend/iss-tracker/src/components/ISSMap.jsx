@@ -1,39 +1,46 @@
-import { MapContainer, TileLayer, Marker, Polyline } from "react-leaflet";
 import { useEffect, useState } from "react";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
 
 function ISSMap() {
   const [position, setPosition] = useState([0, 0]);
-  const [path, setPath] = useState([]);
 
-   useEffect(() => {
-     const interval = setInterval(() => {
-       fetch("http://localhost:8000/iss/location")
-         .then((res) => res.json())
-         .then((data) => {
-           const lat = parseFloat(data.latitude);
-           const lon = parseFloat(data.longitude);
+  useEffect(() => {
+    const fetchISS = async () => {
+      try {
+        const res = await fetch("http://localhost:8000/iss/location");
+        const data = await res.json();
 
-           setPosition([lat, lon]);
+        if (data?.latitude && data?.longitude) {
+          setPosition([data.latitude, data.longitude]);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
 
-           setPath((prev) => [...prev, [lat, lon]]);
-         });
-     }, 5000);
+    fetchISS();
 
-     return () => clearInterval(interval);
-   }, []);
+    const interval = setInterval(fetchISS, 5000); // update every 5 sec
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    // <div className="bg-gray-800 p-4 rounded-2xl shadow-xl">
-    //   <h2 className="text-lg text-green-400 mb-3">🌍 ISS Live Map</h2>
+    <div className="bg-white/10 backdrop-blur-lg p-4 rounded-xl shadow-lg">
+      <h2 className="text-xl font-bold mb-2">🗺️ ISS Live Map</h2>
 
-    <MapContainer center={position} zoom={3} className="h-72 rounded-xl">
-      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-
-      <Marker position={position} />
-      {/* orbit path */}
-      <Polyline positions={path} color="red" />
-    </MapContainer>
-  ); 
+      <MapContainer
+        center={position}
+        zoom={2}
+        style={{ height: "300px", width: "100%" }}
+      >
+        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+        <Marker position={position}>
+          <Popup>🚀 ISS Current Location</Popup>
+        </Marker>
+      </MapContainer>
+    </div>
+  );
 }
 
 export default ISSMap;

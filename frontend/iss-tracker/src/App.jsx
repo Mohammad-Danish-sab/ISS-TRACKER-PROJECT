@@ -3,6 +3,8 @@ import Astronauts from "./components/Astronauts";
 import ISSMap from "./components/ISSMap";
 import Stats from "./components/Stats";
 import ISSPass from "./components/ISSPass";
+import SpeedCard from "./components/SpeedCard";
+import Distance from "./components/Distance";
 
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
           <Astronauts />
           <Stats />
           <ISSPass />
+          <SpeedCard />
+          <Distance />
         </div>
 
         {/* map */}

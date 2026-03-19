@@ -46,3 +46,18 @@ def get_astronauts():
         return {
             "error": "Astronaut API not available"
         }
+
+def get_country(lat, lon):
+    try:
+        url = f"https://nominatim.openstreetmap.org/reverse?lat={lat}&lon={lon}&format=json"
+        res = requests.get(url)
+
+        if res.status_code != 200:
+            return "Ocean"
+
+        data = res.json()
+        return data.get("address", {}).get("country", "Ocean")
+
+    except Exception as e:
+        print("Error:", e)
+        return "Ocean"
