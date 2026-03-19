@@ -5,14 +5,19 @@ function ISSCard() {
   const [location, setLocation] = useState(null);
   const [flag, setFlag] = useState("");
 
-  const fetchLocation = async () => {
-    try {
-      const res = await axios.get("http://127.0.0.1:8000/iss/location");
-      setLocation(res.data);
-    } catch (error) {
-      console.error("Error fetching ISS location");
-    }
-  };
+
+  useEffect(() => {
+    const fetchData = () => {
+      fetch("http://localhost:8000/iss/location")
+        .then((res) => res.json())
+        .then((data) => setLocation(data));
+    };
+
+    fetchData();
+    const interval = setInterval(fetchData, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
 
 useEffect(() => {
   if (location.country) {
@@ -38,6 +43,10 @@ useEffect(() => {
 
       <p className="text-gray-300">🌍 Country: {location.country}</p>
 
+      <p>🌦 Weather: {location.weather.weather}</p>
+      <p>🌡 Temp: {location.weather.temperature}°C</p>
+      <p>💨 Wind: {location.weather.wind} m/s</p>
+
       <p className="text-gray-400 text-sm mt-2">
         Updated: {new Date(location.timestamp * 1000).toLocaleTimeString()}
       </p>
@@ -46,6 +55,15 @@ useEffect(() => {
 
         {flag && <img src={flag} alt="flag" className="w-6 h-4" />}
       </div>
+      <p className="mt-2">🌦 {location.weather?.weather}</p>
+
+      <p>🌡 {location.weather?.temperature} °C</p>
+
+      <p>💨 {location.weather?.wind} m/s</p>
+
+      <p className="text-sm text-gray-400 mt-2">
+        Updated: {new Date(location.timestamp * 1000).toLocaleTimeString()}
+      </p>
     </div>
   );
 }
