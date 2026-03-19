@@ -51,3 +51,12 @@ def get_country(lat, lon):
     except Exception as e:
         print("Error:", e)
         return "Ocean"
+
+def get_iss_pass(lat, lon):
+    url = f"http://api.open-notify.org/iss-pass.json?lat={lat}&lon={lon}"
+    response = requests.get(url)
+    data = response.json()
+
+    return {
+        "passes": data.get("response", [])
+    }

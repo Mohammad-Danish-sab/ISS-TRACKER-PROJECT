@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
+import useUserLocation from "../hooks/useUserLocation";
 
 function ISSPass() {
+  const location = useUserLocation();
   const [passes, setPasses] = useState([]); // ✅ FIX
 
   useEffect(() => {
+     if (!location) return;
+
     fetch("http://localhost:8000/iss/pass")
       .then((res) => res.json())
       .then((data) => {
         setPasses(data.passes || []); // ✅ extra safety
       })
       .catch((err) => console.error(err));
-  }, []);
+  }, [location]);
 
   return (
     <div className="p-4 bg-white shadow rounded">
